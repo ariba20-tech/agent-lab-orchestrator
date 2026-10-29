@@ -63,7 +63,7 @@ describe("orchestration", () => {
   it("retries up to the retry limit", async () => {
     const out = await executeRun([task], base({ model: { ...base().model, retryLimit: 2 } }, { modelFailureRate: 1 }), 1, 0, ids);
     expect(out.tasks[0].timings.retries).toBe(2);
-    expect(out.tasks[0].timings.model_requests).toBe(4); // 3 employee attempts + 0 aggregation? aggregation still called once
+    expect(out.tasks[0].timings.model_requests).toBe(4); // 3 employee attempts + 1 aggregation call
   });
   it("detects invalid JSON as schema failure", async () => {
     const out = await executeRun([task], base({}, { invalidJsonRate: 1 }), 1, 0, ids);
@@ -71,8 +71,8 @@ describe("orchestration", () => {
   });
   it("aggregation duration grows with agent count", async () => {
     const cfg = base({}, { managerPerInputDelayMs: 10 });
-    const t2 = (await executeRun([DEMO_TASKS[16]], cfg, 2, 0, ids)).tasks[0].timings.aggregation_ms;
-    const t8 = (await executeRun([DEMO_TASKS[16]], cfg, 8, 0, ids)).tasks[0].timings.aggregation_ms;
+    const t2 = (await executeRun([DEMO_TASKS[13]], cfg, 2, 0, ids)).tasks[0].timings.aggregation_ms;
+    const t8 = (await executeRun([DEMO_TASKS[13]], cfg, 8, 0, ids)).tasks[0].timings.aggregation_ms;
     expect(t8).toBeGreaterThan(t2);
   });
   it("structured aggregation reports failed agents honestly", async () => {
