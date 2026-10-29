@@ -17,7 +17,7 @@ export async function runPool<T, R>(items: T[], limit: number, fn: (t: T, i: num
       active++;
       maxActive = Math.max(maxActive, active);
       try {
-        results[i] = await fn(items[i], i);
+        results[i] = await fn(items[i] as T, i);
       } finally {
         active--;
       }
@@ -33,8 +33,8 @@ export function planAssignments(task: BenchmarkTask, agentCount: number): Employ
   const out: EmployeeAssignment[] = Array.from({ length: n }, (_, i) => ({
     task, agent_id: `employee-${i + 1}`, facts: [], fields: [],
   }));
-  task.reference_facts.forEach((f, i) => out[i % n].facts.push(f));
-  task.required_fields.forEach((f, i) => out[i % n].fields.push(f));
+  task.reference_facts.forEach((f, i) => out[i % n]!.facts.push(f));
+  task.required_fields.forEach((f, i) => out[i % n]!.fields.push(f));
   return out;
 }
 

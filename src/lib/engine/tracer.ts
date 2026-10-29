@@ -57,7 +57,7 @@ export class ActiveSpan {
     return this;
   }
   event(name: string, attributes?: Record<string, unknown>) {
-    this.events.push({ name, time: this.tracer.iso(this.tracer.now()), attributes });
+    this.events.push({ name, time: this.tracer.iso(this.tracer.now()), ...(attributes ? { attributes } : {}) });
   }
   end(status: "ok" | "error" = "ok", attrs: Record<string, unknown> = {}) {
     if (this.endMs !== null) return this.endMs - this.startMs;
@@ -75,8 +75,8 @@ export class ActiveSpan {
       status,
       attributes: this.attributes,
       events: this.events,
-      agent_key: this.agentKey,
-      task_key: this.taskKey,
+      ...(this.agentKey ? { agent_key: this.agentKey } : {}),
+      ...(this.taskKey ? { task_key: this.taskKey } : {}),
     });
     return this.endMs - this.startMs;
   }

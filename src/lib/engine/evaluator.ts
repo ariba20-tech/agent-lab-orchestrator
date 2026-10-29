@@ -83,10 +83,10 @@ export function summarizeRun(taskMetrics: MetricMap[], wallClockMs: number) {
   }
   return {
     task_count: taskMetrics.length,
-    completion_rate: means.task_success ?? 0,
+    completion_rate: means["task_success"] ?? 0,
     wall_clock_ms: wallClockMs,
     throughput_tasks_per_s: wallClockMs > 0 ? taskMetrics.length / (wallClockMs / 1000) : null,
-    validation_failure_rate: means.schema_valid === null ? null : 1 - (means.schema_valid as number),
+    validation_failure_rate: means["schema_valid"] == null ? null : 1 - (means["schema_valid"] as number),
     means,
   };
 }

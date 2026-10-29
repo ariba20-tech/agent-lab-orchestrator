@@ -54,7 +54,7 @@ const E: T[] = [1, 2, 3].map((i) => ({
   template: "E",
   task_key: `E-${i}`,
   description: `Increasing workload level ${i}: summarise ${i * 6} fictional log events with dependencies.`,
-  complexity: (["low", "medium", "high"] as const)[i - 1],
+  complexity: (["low", "medium", "high"] as const)[i - 1] ?? "low",
   required_fields: ["summary", "dependency_chain", "anomalies"].slice(0, i + 1),
   reference_facts: Array.from({ length: i * 6 }, (_, k) => `Event ${i}.${k + 1} depends on event ${i}.${Math.max(1, k)}`),
   forbidden_claims: [`All workload-${i} events are independent`],
