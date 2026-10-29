@@ -99,7 +99,7 @@ export const executeExperiment = createServerFn({ method: "POST" })
             operation_name: s.operation_name, start_time: s.start_time, end_time: s.end_time, duration_ms: s.duration_ms, status: s.status,
             attributes_json: { ...s.attributes, start_offset_ms: s.start_ms }, events_json: s.events,
           }));
-          const evalRows = out.tasks.flatMap((t, i) => Object.entries(metricsPer[i]).map(([k, v]) => ({ owner_id: uid, experiment_run_id: runId, task_run_id: taskRunIds.get(t.task.task_key)!, evaluator_type: k.startsWith("proxy_") ? "behavioural_proxy" : "deterministic", evaluator_version: EVALUATOR_VERSION, metric_name: k, metric_value: v, details_json: {} })));
+          const evalRows = out.tasks.flatMap((t, i) => Object.entries(metricsPer[i] ?? {}).map(([k, v]) => ({ owner_id: uid, experiment_run_id: runId, task_run_id: taskRunIds.get(t.task.task_key)!, evaluator_type: k.startsWith("proxy_") ? "behavioural_proxy" : "deterministic", evaluator_version: EVALUATOR_VERSION, metric_name: k, metric_value: v, details_json: {} })));
           for (const [table, rows] of [["task_runs", trRows], ["agent_runs", arRows], ["trace_spans", spanRows], ["evaluations", evalRows]] as const) {
             for (let i = 0; i < rows.length; i += 500) {
               const { error: e } = await sb.from(table).insert(rows.slice(i, i + 500) as never);
