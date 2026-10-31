@@ -63,14 +63,14 @@ function Studio() {
 
   async function run() {
     const ds = datasets.find((d) => d.id === datasetId);
-    if (!ds) return toast.error("Choose a dataset first");
+    if (!ds) { toast.error("Choose a dataset first"); return; }
     const parsed = ExperimentConfigSchema.safeParse({
       mode: counts.length > 1 ? "sweep" : "single", agentCounts: counts, taskCount, complexity, coordination, aggregation, repetitions,
       model: { provider: "mock", model: "mock-deterministic", temperature: 0, maxOutputTokens: 1024, timeoutMs: 5000, retryLimit: 1, seed },
       controlled: { datasetVersion: ds.version, promptVersion: "p1", modelVersion: "mock-v1", randomSeed: seed, maxContextTokens: 8192, toolConfig: "none", concurrencyLimit: 8 },
       mock,
     });
-    if (!parsed.success) return toast.error(parsed.error.issues[0]?.message ?? "Invalid configuration");
+    if (!parsed.success) { toast.error(parsed.error.issues[0]?.message ?? "Invalid configuration"); return; }
     setBusy(true);
     try {
       const { data: def, error } = await supabase.from("experiment_definitions").insert({

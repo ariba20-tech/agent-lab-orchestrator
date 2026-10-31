@@ -34,7 +34,7 @@ function Shell() {
   async function createProject() {
     if (!newName.trim()) return;
     const { data, error } = await supabase.from("projects").insert({ name: newName.trim() }).select("id").single();
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     await qc.invalidateQueries({ queryKey: ["projects"] });
     select(data.id);
     setNewName("");
