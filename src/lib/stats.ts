@@ -48,3 +48,16 @@ export function ols(xs: number[], ys: number[]) {
 export function describe(x: number[]) {
   return { n: x.length, mean: mean(x), median: median(x), std: std(x), p50: percentile(x, 50), p95: x.length >= 20 ? percentile(x, 95) : NaN, ci: ci95(x) };
 }
+/** Wilson score 95% interval for a proportion k/n. Always within [0,1]; null when n = 0. */
+export function wilson(k: number, n: number): [number, number] | null {
+  if (n <= 0) return null;
+  const z = 1.96, p = k / n, d = 1 + (z * z) / n;
+  const c = (p + (z * z) / (2 * n)) / d;
+  const h = (z * Math.sqrt((p * (1 - p)) / n + (z * z) / (4 * n * n))) / d;
+  return [Math.max(0, c - h), Math.min(1, c + h)];
+}
+/** t-based CI clamped to a metric's valid range. */
+export function ci95Bounded(x: number[], lo: number, hi: number): [number, number] | null {
+  const c = ci95(x);
+  return c ? [Math.max(lo, c[0]), Math.min(hi, c[1])] : null;
+}

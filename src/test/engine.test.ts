@@ -88,3 +88,17 @@ describe("stats", () => {
   it("computes OLS slope", () => expect(ols([1, 2, 3, 4], [2, 4, 6, 8])!.slope).toBeCloseTo(2));
   it("percentile interpolates", () => expect(percentile([0, 10], 50)).toBe(5));
 });
+
+import { wilson, ci95Bounded } from "@/lib/stats";
+describe("bounded intervals", () => {
+  it("Wilson interval for 12/15 stays inside 0–1", () => {
+    const [lo, hi] = wilson(12, 15)!;
+    expect(lo).toBeGreaterThan(0.5);
+    expect(hi).toBeLessThan(1);
+  });
+  it("clips a t-interval for [1,1,0] task success to 0–1", () => {
+    const [lo, hi] = ci95Bounded([1, 1, 0], 0, 1)!;
+    expect(lo).toBe(0);
+    expect(hi).toBe(1);
+  });
+});

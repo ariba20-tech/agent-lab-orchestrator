@@ -84,7 +84,7 @@ function Studio() {
     } catch (e) { toast.error((e as Error).message); } finally { setBusy(false); }
   }
 
-  const rateKeys = Object.keys(mock).filter((k) => k.endsWith("Rate")) as (keyof typeof mock)[];
+  const rateKeys = Object.keys(mock).filter((k) => k.endsWith("Rate") || k === "managerOmissionLoadFactor") as (keyof typeof mock)[];
 
   return (
     <div className="max-w-4xl space-y-6">
@@ -148,7 +148,7 @@ function Studio() {
         <CardHeader><CardTitle className="text-base">Mock failure injection (0–1)</CardTitle></CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-4">
           {rateKeys.map((k) => (
-            <Field key={k} label={k.replace(/Rate$/, "").replace(/([A-Z])/g, " $1")}>
+            <Field key={k} label={k.replace(/Rate$|LoadFactor$/, (m) => (m === "Rate" ? "" : " load factor")).replace(/([A-Z])/g, " $1")}>
               <Input type="number" step="0.05" min={0} max={1} value={mock[k]} onChange={(e) => setMock({ ...mock, [k]: +e.target.value })} />
             </Field>
           ))}

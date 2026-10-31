@@ -42,6 +42,8 @@ export const MockSettingsSchema = z.object({
   toolFailureRate: rate.default(0),
   employeeOmissionRate: rate.default(0),
   managerOmissionRate: rate.default(0.1),
+  /** Extra omission probability per additional employee input the manager must merge (0 = load-independent). */
+  managerOmissionLoadFactor: z.number().min(0).max(1).default(0),
   unsupportedClaimRate: rate.default(0.05),
   falseConsensusRate: rate.default(0.5),
 });
