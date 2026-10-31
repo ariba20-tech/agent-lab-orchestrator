@@ -209,7 +209,8 @@ export async function executeTask(task: BenchmarkTask, ctx: RunContext): Promise
     const fields: Record<string, string> = {};
     for (const o of usable) {
       for (const f of o.findings) {
-        if (r() < config.mock.managerOmissionRate) continue; // injected omission
+        const pOmit = Math.min(1, config.mock.managerOmissionRate * (1 + (config.mock.managerOmissionLoadFactor ?? 0) * Math.max(0, usable.length - 1)));
+        if (r() < pOmit) continue; // injected omission, optionally scaled by number of inputs
         facts.push(f);
         claims.push({ text: f, evidence_agent: o.agent_id });
       }
