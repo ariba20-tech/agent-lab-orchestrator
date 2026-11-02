@@ -18,7 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const Route = createFileRoute("/_authenticated/studio")({
-  head: () => ({ meta: [{ title: "Experiment Studio — Agent Reliability Lab" }, { name: "description", content: "Design and run multi-agent experiments." }] }),
+  head: () => ({ meta: [{ title: "Experiment Studio — Agent Reliability Lab" }, { name: "description", content: "Design and run multi-agent experiments." }, { property: "og:title", content: "Experiment Studio — Agent Reliability Lab" }, { property: "og:description", content: "Design and run multi-agent experiments." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Studio,
 });
 

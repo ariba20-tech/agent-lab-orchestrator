@@ -5,7 +5,7 @@ import { useCurrentProject } from "@/lib/use-project";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export const Route = createFileRoute("/_authenticated/runs")({
-  head: () => ({ meta: [{ title: "Runs — Agent Reliability Lab" }, { name: "description", content: "All experiment runs with summary metrics." }] }),
+  head: () => ({ meta: [{ title: "Runs — Agent Reliability Lab" }, { name: "description", content: "All experiment runs with summary metrics." }, { property: "og:title", content: "Runs — Agent Reliability Lab" }, { property: "og:description", content: "All experiment runs with summary metrics." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Runs,
 });
 
