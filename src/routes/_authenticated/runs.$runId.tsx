@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/runs/$runId")({
-  head: () => ({ meta: [{ title: "Run detail — Agent Reliability Lab" }, { name: "description", content: "Trace timeline and evaluation metrics for a run." }] }),
+  head: () => ({ meta: [{ title: "Run detail — Agent Reliability Lab" }, { name: "description", content: "Trace timeline and evaluation metrics for a run." }, { property: "og:title", content: "Run detail — Agent Reliability Lab" }, { property: "og:description", content: "Trace timeline and evaluation metrics for a run." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: RunDetail,
 });
 

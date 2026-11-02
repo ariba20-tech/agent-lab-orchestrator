@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export const Route = createFileRoute("/_authenticated/scaling")({
-  head: () => ({ meta: [{ title: "Scaling analysis — Agent Reliability Lab" }, { name: "description", content: "How metrics change with employee count, with confidence intervals." }] }),
+  head: () => ({ meta: [{ title: "Scaling analysis — Agent Reliability Lab" }, { name: "description", content: "How metrics change with employee count, with confidence intervals." }, { property: "og:title", content: "Scaling analysis — Agent Reliability Lab" }, { property: "og:description", content: "How metrics change with employee count, with confidence intervals." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Scaling,
 });
 

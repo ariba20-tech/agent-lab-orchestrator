@@ -4,7 +4,7 @@ import { MOCK_NOTICE, MOCK_PROVIDER_ID } from "@/lib/engine/mock-provider";
 import { EVALUATOR_VERSION } from "@/lib/engine/evaluator";
 
 export const Route = createFileRoute("/_authenticated/settings")({
-  head: () => ({ meta: [{ title: "Settings — Agent Reliability Lab" }, { name: "description", content: "Provider and integration status." }] }),
+  head: () => ({ meta: [{ title: "Settings — Agent Reliability Lab" }, { name: "description", content: "Provider and integration status." }, { property: "og:title", content: "Settings — Agent Reliability Lab" }, { property: "og:description", content: "Provider and integration status." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Settings,
 });
 

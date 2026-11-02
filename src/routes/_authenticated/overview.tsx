@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/overview")({
-  head: () => ({ meta: [{ title: "Overview — Agent Reliability Lab" }, { name: "description", content: "Project overview of experiments and runs." }] }),
+  head: () => ({ meta: [{ title: "Overview — Agent Reliability Lab" }, { name: "description", content: "Project overview of experiments and runs." }, { property: "og:title", content: "Overview — Agent Reliability Lab" }, { property: "og:description", content: "Project overview of experiments and runs." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Overview,
 });
 
